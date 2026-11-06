@@ -1,5 +1,6 @@
-// プラグインの版（.claude-plugin/plugin.json）と、各スキルの版（SKILL.md の metadata.version）、
-// CHANGELOG.md の見出しがそろっているかを検査する。
+// プラグインの版（.claude-plugin/plugin.json）と、各スキルの版、CHANGELOG.md の見出しがそろっているかを検査する。
+// スキルの版は、frontmatter の metadata.version と、本文の「このスキルの版: X.Y.Z」の2か所に書く
+// （本文はモデルが読む。frontmatter はモデルに渡らないことがあるため）。
 // スキルは自分の版を MCP サーバーが求める最も古い版と比べるので、ずれると誤った案内をする。
 import { readFileSync, readdirSync, existsSync } from "node:fs";
 import { join } from "node:path";
@@ -13,17 +14,48 @@ if (!/^\d+\.\d+\.\d+$/.test(version ?? "")) {
   errors.push(`plugin.json の version が X.Y.Z の形ではない: ${version}`);
 }
 
+// frontmatter の metadata の直下（metadata より1段深い字下げ）にある version だけを読む。
+function metadataVersion(frontmatter) {
+  const lines = frontmatter.split("\n");
+  const start = lines.findIndex((line) => /^metadata:\s*$/.test(line));
+  if (start < 0) return undefined;
+  let indent;
+  for (const line of lines.slice(start + 1)) {
+    if (line.trim() === "") continue;
+    const current = line.match(/^[ \t]*/)[0].length;
+    if (current === 0) break; // metadata の外に出た
+    indent ??= current;
+    if (current !== indent) continue; // さらに深い入れ子は見ない
+    const m = line.match(/^[ \t]+version:[ \t]*["']?([^"'\s]+)["']?[ \t]*$/);
+    if (m) return m[1];
+  }
+  return undefined;
+}
+
 const skillsDir = join(root, "skills");
 for (const name of readdirSync(skillsDir)) {
   const file = join(skillsDir, name, "SKILL.md");
   if (!existsSync(file)) continue;
   const text = readFileSync(file, "utf8").replace(/\r\n/g, "\n");
-  const frontmatter = text.match(/^---\n([\s\S]*?)\n---\n/);
-  const skillVersion = frontmatter?.[1].match(/^metadata:\n(?:[ \t]+.*\n)*?[ \t]+version:[ \t]*["']?([^"'\s]+)/m)?.[1];
-  if (!skillVersion) {
+  const match = text.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
+  if (!match) {
+    errors.push(`${file}: frontmatter が無い`);
+    continue;
+  }
+  const [, frontmatter, body] = match;
+
+  const fmVersion = metadataVersion(frontmatter);
+  if (!fmVersion) {
     errors.push(`${file}: frontmatter に metadata.version が無い`);
-  } else if (skillVersion !== version) {
-    errors.push(`${file}: metadata.version ${skillVersion} が plugin.json の ${version} と違う`);
+  } else if (fmVersion !== version) {
+    errors.push(`${file}: metadata.version ${fmVersion} が plugin.json の ${version} と違う`);
+  }
+
+  const bodyVersions = [...body.matchAll(/^このスキルの版: (\S+)$/gm)].map((m) => m[1]);
+  if (bodyVersions.length !== 1) {
+    errors.push(`${file}: 本文に「このスキルの版: X.Y.Z」の行がちょうど1つ無い（${bodyVersions.length} 個）`);
+  } else if (bodyVersions[0] !== version) {
+    errors.push(`${file}: 本文の版 ${bodyVersions[0]} が plugin.json の ${version} と違う`);
   }
 }
 

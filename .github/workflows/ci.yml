@@ -26,6 +26,6 @@ jobs:
 
       - name: マーケットプレイスとプラグインの定義
         run: |
-          npm install --global @anthropic-ai/claude-code
+          npm install --global @anthropic-ai/claude-code@2.1.285
           claude plugin validate . --strict
           claude plugin validate .claude-plugin/plugin.json --strict

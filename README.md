@@ -30,7 +30,7 @@ API キーは、そのプロジェクトだけを操作できるように範囲�
       "type": "http",
       "url": "https://<Issue Tracker のオリジン>/api/mcp",
       "headers": {
-        "Authorization": "Bearer ${ISSUE_TRACKER_API_KEY}"
+        "Authorization": "Bearer <API キー>"
       }
     }
   }
@@ -40,6 +40,9 @@ API キーは、そのプロジェクトだけを操作できるように範囲�
 > [!IMPORTANT]
 > API キーを書いた `.mcp.json` を Git に入れないでください。`.gitignore` に `.mcp.json` を足してください。
 > キーは発行した人と同じ権限で動くので、リポジトリを読める人がその人として操作できてしまいます。
+
+キーを環境変数から読む（`"Bearer ${変数名}"`）場合は、プロジェクトごとに別の変数名にしてください。
+どのリポジトリでも同じ変数を使うと、すべてのプロジェクトで同じキーを使うことになります。
 
 プラグインは MCP サーバーの設定を含みません（[ADR 0002](docs/adr/0002-no-bundled-mcp-server.md)）。
 
