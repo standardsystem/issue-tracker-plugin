@@ -18,25 +18,29 @@ metadata:
 
 上から順に行う。
 
-1. **MCP を確かめる。** MCP サーバー `issue-tracker` のツール（`get_issue`、`update_issue`、`add_comment` など）が使えなければ、止める。
-   利用者には、次のように設定し、Claude Code を起動し直すよう伝える。
-   API キーは Issue Tracker の画面の「API キー / MCP」で、そのプロジェクトに範囲を絞って発行する。
+1. **MCP を確かめる。**
+   - `.mcp.json` があれば、MCP が使えるときも、`git check-ignore -q .mcp.json` で Git に無視されているかを確かめる。
+     無視されていなければ（`.gitignore` に入っていなければ）、API キーがコミットに入るおそれがあると利用者に伝える。
+   - MCP サーバー `issue-tracker` のツール（`get_issue`、`update_issue`、`add_comment` など）が使えなければ、止める。
+     利用者には、次のように設定し、Claude Code を起動し直すよう伝える。設定は利用者が自分の端末で行う。API キーを会話に貼らないよう伝える。
+     API キーは Issue Tracker の画面の「API キー / MCP」で、そのプロジェクトに範囲を絞って発行する。
+     先に `git ls-files .mcp.json` で、`.mcp.json` を Git が管理しているかを確かめる。
+     - 管理していなければ、`.mcp.json` に次のように書き、`.gitignore` に `.mcp.json` を足す。
 
-   先に `git ls-files .mcp.json` で、`.mcp.json` を Git が管理しているかを確かめる。
-   - 管理していなければ、`.mcp.json` に次のように書き、`.gitignore` に `.mcp.json` を足す。
-   - 管理していれば、キーをそこに書かない（次のコミットに入る）。代わりに、リポジトリの外に保存される `claude mcp add --transport http --scope local issue-tracker https://<Issue Tracker のオリジン>/api/mcp --header "Authorization: Bearer <API キー>"` を使う。
-
-   ```json
-   {
-     "mcpServers": {
-       "issue-tracker": {
-         "type": "http",
-         "url": "https://<Issue Tracker のオリジン>/api/mcp",
-         "headers": { "Authorization": "Bearer <API キー>" }
+       ```json
+       {
+         "mcpServers": {
+           "issue-tracker": {
+             "type": "http",
+             "url": "https://<Issue Tracker のオリジン>/api/mcp",
+             "headers": { "Authorization": "Bearer <API キー>" }
+           }
+         }
        }
-     }
-   }
-   ```
+       ```
+
+     - 管理していれば、キーをそこに書かない（次のコミットに入る）。代わりに、リポジトリの外に保存される `claude mcp add --transport http --scope local issue-tracker https://<Issue Tracker のオリジン>/api/mcp --header "Authorization: Bearer <API キー>"` を使う。
+       このコマンドはキーがシェルの履歴に残るので、打ったあとで履歴から消すよう添える。
 
 2. **版を確かめる。** MCP サーバー `issue-tracker` の instructions に「issue-tracker プラグインのスキルは、版 X.Y.Z 以上で使ってください。」とあれば、このスキルの版（冒頭の「このスキルの版」）と比べる。
    このスキルの版が古ければ、利用者に更新（`/plugin marketplace update issue-tracker-plugin`）を勧め、続けるかを聞く。instructions に版が書いてなければ、比べない。
@@ -63,8 +67,9 @@ metadata:
 
 次のどれかに当たれば、着手しないで利用者に伝える。
 
-- 状態が完了（`statuses.done`）か、最新の印が `完了` である。
-  マージ済みの状態がプロジェクトで完了扱い（`closed`）になっていても、`確認待ち`・`リリース待ち` の課題は下の再開の表に従う。
+- 最新の印が `完了` である。
+- 状態が完了扱い（`list_statuses` の `closed`）で、マージ済み（`statuses.merged`）ではない（「完了」のほか、「対応しない」などで閉じた課題）。
+  状態がマージ済みなら、プロジェクトで完了扱いになっていても、下の再開の表に従う。
 - 未完了の先行課題がある。
 - 最新の印が「作業中」の扱い（`着手`・`PR を作成`・`レビュー n 回目`・`マージ`）である。
   最後のコメントの日時と、PR があればその状態を添えて、続きから再開するか外すかを利用者に選んでもらう。時間がたっていても、自動では再開しない。
@@ -101,10 +106,12 @@ metadata:
 
 ## 4. コミット、push、PR
 
+- 変更したファイルを名前で `git add` する（`git add -A` や `git add .` は使わない）。`.mcp.json`・`.env` など、秘密情報を含みうるファイルは入れない。
 - コミットは Conventional Commits の形にし、本文に `Refs: <課題キー>` を書く。
 - PR の本文: 目的、変更、確認したこと（コマンドと結果）、未確認のこと、課題キー。
 - 課題に `PR を作成` の印のコメントを残す（PR の URL）。印を残すのは、PR を作った最初の1回だけである。
-- 以降、このブランチに push するたびに、そのコミットを控えておく（7章で head と比べる）。
+- 以降、このブランチに push したコミットは、必ず PR のコメントに書く（6章のレビューのコメント、7章の CI の修正のコメント）。
+  7章で、head までのコミットがすべて自分の push かを確かめるためである。会話の中だけに控えると、セッションをまたいで再開したときに失われる。
 
 ## 5. レビューさせる
 
@@ -143,9 +150,11 @@ metadata:
 
 1. PR の CI が成功したことを確かめる（`gh pr checks <番号> --watch`）。
    - チェックが1つも無ければ、そのことを利用者に伝えて進む。
-   - 失敗したら、原因を直して `check` を通し、push する。この修正では再レビューしない（6章で正しい P0・P1 が 0 件だった回のあとの P2 の修正と同じ扱い）。
-     ただし、修正が失敗の原因を超えて動きを変えるなら、止めて利用者に伝える。
-2. PR の head が、最後に自分が push したコミット（4章で控えたもの）と同じことを確かめる。違えば、ほかの人が push したので止めて利用者に伝える。
+   - 失敗したら、原因を直して `check` を通し、push する。push したコミットと直した内容を PR にコメントし、新しい head で 7.1 をやり直す。
+     この修正では再レビューしない（6章で正しい P0・P1 が 0 件だった回のあとの P2 の修正と同じ扱い）。
+     ただし、修正が失敗の原因を超えて動きを変えるとき、または2回直しても失敗するときは、`止まった` の印を残して利用者に伝える。
+2. 最後にレビューしたコミット（`review.by` が `none` なら、PR を作ったときの head）から PR の head までのコミット（`git log <そのコミット>..<head>`）が、すべて PR のコメントに書いた自分の push であることを確かめる。
+   書いていないコミットがあれば、ほかの人が push したか、記録が抜けている。止めて、それらのコミットを利用者に見せて確かめる。
 3. 利用者の承認を受ける。次の a〜c に当たらなければ、最初の指示でマージまで任されたときは承認なしでよい。
    - a. **公開の型が `auto` か、書いてない（分からない）とき:** マージすると本番に公開される（かもしれない）ことを示して、改めて承認を求める。最初の指示で公開まで明示して任されたときだけ、承認なしでよい。
    - b. **設定の `## 毎回確かめること` に当たるマージ（マイグレーションを含むなど）:** 任されていても、毎回確かめる。

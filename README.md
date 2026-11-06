@@ -49,6 +49,8 @@ claude mcp add --transport http --scope local issue-tracker https://<Issue Track
   --header "Authorization: Bearer <API キー>"
 ```
 
+このコマンドは、キーがシェルの履歴に残ります。打ったあとで履歴から消してください。キーを Claude との会話に貼らないでください。
+
 キーを環境変数から読む（`"Bearer ${変数名}"`）場合は、プロジェクトごとに別の変数名にしてください。
 どのリポジトリでも同じ変数を使うと、すべてのプロジェクトで同じキーを使うことになります。
 
