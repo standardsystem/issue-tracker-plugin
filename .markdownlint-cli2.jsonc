@@ -1,0 +1,8 @@
+{
+  // MD013 は URL やテーブルで頻発するため無効
+  "config": {
+    "MD013": false
+  },
+  "globs": ["**/*.md"],
+  "ignores": ["node_modules/**"]
+}
