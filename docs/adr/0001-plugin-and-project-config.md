@@ -4,6 +4,7 @@
 - **Date**: 2026-11-06
 - **Deciders**: kazuyukikato
 - **Related**: [issue-workflow-format.md](../issue-workflow-format.md)、[comment-markers.md](../comment-markers.md)
+- **Amended by**: [ADR 0002](0002-no-bundled-mcp-server.md)（MCP サーバーの接続の設定はプラグインに含めない）
 
 ## Context
 
@@ -48,8 +49,8 @@ Issue Tracker のサーバーは非公開で、デプロイできる人は限る
 
 - Issue Tracker 専用のプラグインにし、専用の公開リポジトリに、マーケットプレイスの定義とプラグインを置く。
   プラグインは利用者のためのものなので、非公開のサーバーのリポジトリとは分ける。
-- プラグインには、スキル2つと、MCP サーバー `issue-tracker` への接続の設定を含める。
-  接続先の URL と API キーは、環境変数（`ISSUE_TRACKER_URL`・`ISSUE_TRACKER_API_KEY`）から読む。
+- プラグインには、スキル2つを含める。
+  MCP サーバー `issue-tracker` への接続の設定も含めるとしていたが、[ADR 0002](0002-no-bundled-mcp-server.md) で含めないことに変えた。
   公開のリポジトリなので、接続先・社内のプロジェクト名・個別の事情は中身に書かない。
 - 正本はこのリポジトリだけとする。スキルを作ったプロジェクトも利用者の側に回り、手元のコピーは消す。
 - B は採らない。スキルの中身は、git の作業ツリー・`gh`・バックグラウンドでの実行・利用者への確認など、利用者の手元で行う作業がほとんどである。

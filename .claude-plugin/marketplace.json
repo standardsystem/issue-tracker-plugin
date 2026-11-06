@@ -1,0 +1,14 @@
+{
+  "name": "issue-tracker-plugin",
+  "owner": {
+    "name": "standardsystem"
+  },
+  "description": "STANDARD Issue Tracker 用の Claude Code プラグイン",
+  "plugins": [
+    {
+      "name": "issue-tracker",
+      "source": "./",
+      "description": "STANDARD Issue Tracker の課題を、着手から完了まで解決するスキル"
+    }
+  ]
+}
