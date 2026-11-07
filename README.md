@@ -6,6 +6,7 @@ STANDARD Issue Tracker の課題を、Claude Code が着手から完了まで解
 
 - `/issue-tracker:resolve-issue <課題キー>`: 課題を1件解決する。
   着手の確認 → 着手 → 実装と確認 → PR → レビューと対応（最大3回） → マージ → 公開 → 本番で確認 → 完了、の順に進め、段階ごとに課題へコメントを残す。
+  マージと公開の前には、毎回利用者の承認を求める。
   ほかに同じ名前のスキルが無ければ、`/resolve-issue` でも呼べます。「PROJ-12 を解決して」のように頼んでも使われます。
 - `/issue-tracker:resolve-issues [課題キー…]`（準備中）: 複数の課題を、`resolve-issue` の手順で1件ずつ解決する。
 
