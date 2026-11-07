@@ -25,6 +25,7 @@
 [resolve-issue] PR を作成
 
 https://github.com/acme/tasks-web/pull/42
+head: 3f2c1ab
 ```
 
 ```markdown
