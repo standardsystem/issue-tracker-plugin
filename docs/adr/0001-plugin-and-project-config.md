@@ -4,7 +4,7 @@
 - **Date**: 2026-11-06
 - **Deciders**: kazuyukikato
 - **Related**: [issue-workflow-format.md](../issue-workflow-format.md)、[comment-markers.md](../comment-markers.md)
-- **Amended by**: [ADR 0002](0002-no-bundled-mcp-server.md)（MCP サーバーの接続の設定はプラグインに含めない）
+- **Amended by**: [ADR 0002](0002-no-bundled-mcp-server.md)（MCP サーバーの接続の設定はプラグインに含めない）、[ADR 0003](0003-review-gated-merge.md)（レビューで止まる条件を満たした PR は、承認なしでマージする）
 
 ## Context
 
@@ -86,6 +86,7 @@ Issue Tracker のサーバーは非公開で、デプロイできる人は限る
 - 設定に公開の型が無いときは、型が分からないものとして扱い、着手の前に利用者に聞く。
   「公開: なし」と明記してあれば、マージした時点で完了にする。
 - マージと公開は、その直前に毎回、利用者の承認を受ける。スキルの呼び出しや「解決して」という依頼は、承認にならない。
+  マージについては、[ADR 0003](0003-review-gated-merge.md) で、レビューで止まる条件を満たせば承認なしで行うことに変えた。
   最初に「マージまで任せる」と言われたら承認を省く、という扱いは 0.1.0 では採らない。
   任されたかどうかの判定と、その例外（自動の型、毎回確かめる操作）の組み合わせから、承認なしにマージや公開が起きる穴がレビューで繰り返し見つかったためである。
   まとめて任せる仕組みは、必要になったら `/resolve-issues` で改めて決める。
