@@ -6,9 +6,10 @@ STANDARD Issue Tracker の課題を、Claude Code が着手から完了まで解
 
 - `/issue-tracker:resolve-issue <課題キー>`: 課題を1件解決する。
   着手の確認 → 着手 → 実装と確認 → PR → レビューと対応（最大3回） → マージ → 公開 → 本番で確認 → 完了、の順に進め、段階ごとに課題へコメントを残す。
-  マージと公開の前には、毎回利用者の承認を求める。
+  公開の前には、毎回利用者の承認を求める。マージは、レビューで止まる条件を満たし、レビューのあとの push が修正だけで、CI が成功し、マージで公開されず、`## 毎回確かめること` に当たらないときだけ、承認なしで行う（[ADR 0003](docs/adr/0003-review-gated-merge.md)）。
   ほかに同じ名前のスキルが無ければ、`/resolve-issue` でも呼べます。「PROJ-12 を解決して」のように頼んでも使われます。
-- `/issue-tracker:resolve-issues [課題キー…]`（準備中）: 複数の課題を、`resolve-issue` の手順で1件ずつ解決する。
+- `/issue-tracker:resolve-issues [課題キー…]`: 複数の課題を、`resolve-issue` の手順で1件ずつ解決する。
+  承認や利用者の判断が要るところに来た課題は、そこで止めて次の課題へ進み、最後に承認と判断をまとめて求める。
 
 ## 使うために要るもの
 
@@ -95,6 +96,11 @@ claude plugin marketplace add standardsystem/issue-tracker-plugin --scope projec
 claude plugin install issue-tracker@issue-tracker-plugin --scope project
 ```
 
+> [!NOTE]
+> `--scope project` で入れた記録は、コマンドを実行したディレクトリに結び付きます。
+> コマンドは、スキルを使うリポジトリのディレクトリで実行してください。PR を作るための別の作業ツリー（`git worktree`）で実行すると、元のディレクトリでは読み込まれません。
+> 別の clone や作業ツリーで、`claude plugin list` に出るのにスキルが使えないときは、そのディレクトリで上の2つのコマンドを実行し直し、`/reload-plugins` で読み込み直してください。
+
 ## 文書
 
 - [設定のファイルの書式](docs/issue-workflow-format.md)
@@ -102,6 +108,7 @@ claude plugin install issue-tracker@issue-tracker-plugin --scope project
 - [CHANGELOG](CHANGELOG.md)
 - [ADR 0001: プラグインとして配り、プロジェクトの違いは設定のファイルに書く](docs/adr/0001-plugin-and-project-config.md)
 - [ADR 0002: MCP サーバーの接続の設定をプラグインに含めない](docs/adr/0002-no-bundled-mcp-server.md)
+- [ADR 0003: レビューで止まる条件を満たした PR は承認なしでマージし、まとめて任せる仕組みは作らない](docs/adr/0003-review-gated-merge.md)
 
 ## ライセンス
 
