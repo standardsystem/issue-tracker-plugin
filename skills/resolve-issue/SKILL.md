@@ -181,7 +181,7 @@ metadata:
 
 1. PR の CI が成功したことを確かめる（`gh pr checks <番号> --watch`）。
    - チェックが1つも無ければ、リポジトリに CI が無いかを確かめる。次のどれにも当たらなければ、CI が無いとみなす。
-     - PR の head に `.github/workflows/` のファイルがある
+     - PR の head か origin/main に `.github/workflows/` のファイルがある（PR がワークフローを消すときも、CI があるとみなす）
      - main の最新のコミットに、チェックかステータスがある（`gh api repos/<owner/repo>/commits/<コミット>/check-runs` と `.../status` の `total_count`）
      - リポジトリの説明（`AGENTS.md` など）に CI がある
    - CI があるのにチェックが無ければ、登録を待ってから 7.1 をやり直す（`gh pr checks` はチェックが無いと待たずに終わる）。数分待っても無ければ、7.4 の条件を欠く。
