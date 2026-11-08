@@ -95,6 +95,11 @@ claude plugin marketplace add standardsystem/issue-tracker-plugin --scope projec
 claude plugin install issue-tracker@issue-tracker-plugin --scope project
 ```
 
+> [!NOTE]
+> `--scope project` で入れた記録は、コマンドを実行したディレクトリに結び付きます。
+> コマンドは、スキルを使うリポジトリのディレクトリで実行してください。PR を作るための別の作業ツリー（`git worktree`）で実行すると、元のディレクトリでは読み込まれません。
+> 別の clone や作業ツリーで、`claude plugin list` に出るのにスキルが使えないときは、そのディレクトリで上の2つのコマンドを実行し直し、`/reload-plugins` で読み込み直してください。
+
 ## 文書
 
 - [設定のファイルの書式](docs/issue-workflow-format.md)
