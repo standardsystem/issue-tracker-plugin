@@ -109,6 +109,7 @@ claude plugin install issue-tracker@issue-tracker-plugin --scope project
 - [ADR 0001: プラグインとして配り、プロジェクトの違いは設定のファイルに書く](docs/adr/0001-plugin-and-project-config.md)
 - [ADR 0002: MCP サーバーの接続の設定をプラグインに含めない](docs/adr/0002-no-bundled-mcp-server.md)
 - [ADR 0003: レビューで止まる条件を満たした PR は承認なしでマージし、まとめて任せる仕組みは作らない](docs/adr/0003-review-gated-merge.md)
+- [ADR 0004: 正本の Markdown の節は、`## レビュー` だけを受け継ぐ](docs/adr/0004-inherit-review-section.md)
 
 ## ライセンス
 
