@@ -1,6 +1,6 @@
 {
   "name": "issue-tracker",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "STANDARD Issue Tracker の課題を、着手の確認から実装、PR、レビュー、マージ、公開、本番での確認、完了まで解決するスキル",
   "author": {
     "name": "standardsystem"
