@@ -3,12 +3,12 @@ name: resolve-issues
 description: STANDARD Issue Tracker の課題を複数件、resolve-issue の手順で1件ずつ順に解決する。承認や利用者の判断が要る課題はそこで止めて次へ進み、最後に承認と判断をまとめて求める。「課題をまとめて解決して」「着手できる課題を片付けて」と頼まれたとき、または /resolve-issues で呼ばれたときに使う。
 argument-hint: "[課題キー…]"
 metadata:
-  version: 0.3.0
+  version: 0.4.0
 ---
 
 # 課題をまとめて解決する
 
-このスキルの版: 0.3.0
+このスキルの版: 0.4.0
 
 引数は、課題キーを空白かカンマで区切って並べたもの（例: `PROJ-12 PROJ-15`）。無ければ、候補を出して利用者に選んでもらう: `$ARGUMENTS`
 
