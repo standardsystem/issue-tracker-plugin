@@ -111,6 +111,7 @@ claude plugin install issue-tracker@issue-tracker-plugin --scope project
 - [ADR 0003: レビューで止まる条件を満たした PR は承認なしでマージし、まとめて任せる仕組みは作らない](docs/adr/0003-review-gated-merge.md)
 - [ADR 0004: 正本の Markdown の節は、`## レビュー` だけを受け継ぐ](docs/adr/0004-inherit-review-section.md)
 - [ADR 0005: レビューする Claude のモデルを設定で選び、複数のレビューする者を並べられるようにする](docs/adr/0005-review-model-and-multiple-reviewers.md)
+- [ADR 0006: 作業している間だけ課題を予約し、止めるときは解除する](docs/adr/0006-reserve-issue-while-working.md)
 
 ## ライセンス
 
