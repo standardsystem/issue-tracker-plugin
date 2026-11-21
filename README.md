@@ -7,6 +7,7 @@ STANDARD Issue Tracker の課題を、Claude Code が着手から完了まで解
 - `/issue-tracker:resolve-issue <課題キー>`: 課題を1件解決する。
   着手の確認 → 着手 → 実装と確認 → PR → レビューと対応（最大3回） → マージ → 公開 → 本番で確認 → 完了、の順に進め、段階ごとに課題へコメントを残す。
   公開の前には、毎回利用者の承認を求める。マージは、レビューで止まる条件を満たし、レビューのあとの push が修正だけで、CI が成功し（CI が無ければ `check` を通し）、マージで公開されず、`## 毎回確かめること` に当たらないときだけ、承認なしで行う（[ADR 0003](docs/adr/0003-review-gated-merge.md)）。
+  プロジェクトの設定で「API キーではこの状態にできない」を付けた状態には、スキルは課題を変えず、画面で変えるよう利用者に頼む（[ADR 0007](docs/adr/0007-api-locked-statuses.md)）。
   ほかに同じ名前のスキルが無ければ、`/resolve-issue` でも呼べます。「PROJ-12 を解決して」のように頼んでも使われます。
 - `/issue-tracker:resolve-issues [課題キー…]`: 複数の課題を、`resolve-issue` の手順で1件ずつ解決する。
   承認や利用者の判断が要るところに来た課題は、そこで止めて次の課題へ進み、最後に承認と判断をまとめて求める。
@@ -112,6 +113,7 @@ claude plugin install issue-tracker@issue-tracker-plugin --scope project
 - [ADR 0004: 正本の Markdown の節は、`## レビュー` だけを受け継ぐ](docs/adr/0004-inherit-review-section.md)
 - [ADR 0005: レビューする Claude のモデルを設定で選び、複数のレビューする者を並べられるようにする](docs/adr/0005-review-model-and-multiple-reviewers.md)
 - [ADR 0006: 作業している間だけ課題を予約し、止めるときは解除する](docs/adr/0006-reserve-issue-while-working.md)
+- [ADR 0007: API キーでは変えられない状態への変更は、利用者に画面で変えてもらう](docs/adr/0007-api-locked-statuses.md)
 
 ## ライセンス
 
