@@ -17,7 +17,7 @@ STANDARD Issue Tracker の課題を、Claude Code が着手から完了まで解
 - Claude Code
 - STANDARD Issue Tracker の API キー（画面の「API キー / MCP」で発行する）
 - GitHub CLI（`gh`）。PR の作成、マージ、設定の正本の読み込みに使う
-- レビューを Codex にさせる場合は、Codex CLI
+- レビューを Codex にさせる場合は、Codex CLI。スキルは、着手の前に `codex` が使えることと、Codex に送ってよい範囲を確かめる（[ADR 0008](docs/adr/0008-check-review-config-before-starting.md)）
 
 ## 入れ方
 
@@ -114,6 +114,7 @@ claude plugin install issue-tracker@issue-tracker-plugin --scope project
 - [ADR 0005: レビューする Claude のモデルを設定で選び、複数のレビューする者を並べられるようにする](docs/adr/0005-review-model-and-multiple-reviewers.md)
 - [ADR 0006: 作業している間だけ課題を予約し、止めるときは解除する](docs/adr/0006-reserve-issue-while-working.md)
 - [ADR 0007: API キーでは変えられない状態への変更は、利用者に画面で変えてもらう](docs/adr/0007-api-locked-statuses.md)
+- [ADR 0008: レビューの設定は着手の前に確かめ、Codex に送ってよい範囲が分からなければ利用者に確かめる](docs/adr/0008-check-review-config-before-starting.md)
 
 ## ライセンス
 
