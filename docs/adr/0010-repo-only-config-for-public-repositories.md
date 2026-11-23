@@ -4,6 +4,7 @@
 - **Date**: 2026-11-23
 - **Deciders**: kazuyukikato
 - **Related**: [ADR 0001](0001-plugin-and-project-config.md)（設定のファイルを、プロジェクトの層とリポジトリの層に分けた）、[ADR 0004](0004-inherit-review-section.md)（正本の Markdown の節の受け継ぎ）
+- **Amended by**: [ADR 0011](0011-issue-keys-in-branches-commits-and-prs.md)（このリポジトリでは、ブランチ名・コミット・PR に課題キーを書く）
 
 ## Context
 
