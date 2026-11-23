@@ -4,6 +4,7 @@
 - **Date**: 2026-11-23
 - **Deciders**: kazuyukikato
 - **Related**: [ADR 0008](0008-check-review-config-before-starting.md)（この ADR が一部を改める）、[ADR 0009](0009-show-all-review-config-problems-at-once.md)（送ってよいという答えを残す）、[ADR 0005](0005-review-model-and-multiple-reviewers.md)
+- **Amended by**: [ADR 0013](0013-read-settings-from-default-branch.md)（PR が設定のファイルを変えたときのことを決めた。設定は既定のブランチのものを読む）
 
 ## Context
 
