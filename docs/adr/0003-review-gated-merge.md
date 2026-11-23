@@ -5,6 +5,7 @@
 - **Deciders**: kazuyukikato
 - **Amends**: [ADR 0001](0001-plugin-and-project-config.md)（マージと公開は、その直前に毎回、利用者の承認を受ける）
 - **Related**: [issue-workflow-format.md](../issue-workflow-format.md)、[comment-markers.md](../comment-markers.md)
+- **Amended by**: [ADR 0013](0013-read-settings-from-default-branch.md)（PR が設定のファイルを変えていれば、承認なしではマージしない）
 
 ## Context
 
