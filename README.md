@@ -6,7 +6,7 @@ STANDARD Issue Tracker の課題を、Claude Code が着手から完了まで解
 
 - `/issue-tracker:resolve-issue <課題キー>`: 課題を1件解決する。
   着手の確認 → 着手 → 実装と確認 → PR → レビューと対応（最大3回） → マージ → 公開 → 本番で確認 → 完了、の順に進め、段階ごとに課題へコメントを残す。
-  公開の前には、毎回利用者の承認を求める。マージは、レビューで止まる条件を満たし、レビューのあとの push が修正だけで、CI が成功し（CI が無ければ `check` を通し）、マージで公開されず、`## 毎回確かめること` に当たらないときだけ、承認なしで行う（[ADR 0003](docs/adr/0003-review-gated-merge.md)）。
+  公開の前には、毎回利用者の承認を求める。マージは、レビューで止まる条件を満たし、レビューのあとの push が修正だけで、CI が成功し（CI が無ければ `check` を通し）、マージで公開されず、`## 毎回確かめること` に当たらず、PR が設定のファイルを変えていないときだけ、承認なしで行う（[ADR 0003](docs/adr/0003-review-gated-merge.md)、[ADR 0013](docs/adr/0013-read-settings-from-default-branch.md)）。
   プロジェクトの設定で「API キーではこの状態にできない」を付けた状態には、スキルは課題を変えず、画面で変えるよう利用者に頼む（[ADR 0007](docs/adr/0007-api-locked-statuses.md)）。
   ほかに同じ名前のスキルが無ければ、`/resolve-issue` でも呼べます。「PROJ-12 を解決して」のように頼んでも使われます。
 - `/issue-tracker:resolve-issues [課題キー…]`: 複数の課題を、`resolve-issue` の手順で1件ずつ解決する。
@@ -106,6 +106,7 @@ Issue Tracker のサーバーが、より新しい版を求めているとき、
 課題を解決するリポジトリに `.agents/issue-workflow.md` を置き、`AGENTS.md` にそれを指す1行を足します。
 書き方は [設定のファイルの書式](docs/issue-workflow-format.md) にあります。
 ファイルが無いリポジトリでスキルを使うと、スキルが案を作って、書くかを聞きます。
+設定は、既定のブランチに入ると効きます。既定のブランチの作業ツリーで書いたものは、コミットの前でも読まれます（書式の文書の「設定のファイルを読む場所」）。
 
 ### チームで使う
 
@@ -139,6 +140,7 @@ claude plugin install issue-tracker@issue-tracker-plugin --scope project
 - [ADR 0010: 公開のリポジトリには、リポジトリの層だけの設定を置き、正本からたどる](docs/adr/0010-repo-only-config-for-public-repositories.md)
 - [ADR 0011: このリポジトリのブランチ名・コミット・PR には、課題キーだけを書いてよい](docs/adr/0011-issue-keys-in-branches-commits-and-prs.md)
 - [ADR 0012: PR がレビューのスクリプトを変えたときは、差分を示して、Codex に送ってよいかを利用者に確かめる](docs/adr/0012-ask-when-pr-changes-review-script.md)
+- [ADR 0013: 手元のリポジトリの設定のファイルは、既定のブランチのものを読む](docs/adr/0013-read-settings-from-default-branch.md)
 
 ## ライセンス
 
