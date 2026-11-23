@@ -117,6 +117,7 @@ claude plugin install issue-tracker@issue-tracker-plugin --scope project
 - [ADR 0008: レビューの設定は着手の前に確かめ、Codex に送ってよい範囲が分からなければ利用者に確かめる](docs/adr/0008-check-review-config-before-starting.md)
 - [ADR 0009: レビューの設定の確かめは、当たったものをまとめて示し、送ってよいという答えを `着手` の印に残す](docs/adr/0009-show-all-review-config-problems-at-once.md)
 - [ADR 0010: 公開のリポジトリには、リポジトリの層だけの設定を置き、正本からたどる](docs/adr/0010-repo-only-config-for-public-repositories.md)
+- [ADR 0011: このリポジトリのブランチ名・コミット・PR には、課題キーだけを書いてよい](docs/adr/0011-issue-keys-in-branches-commits-and-prs.md)
 
 ## ライセンス
 
