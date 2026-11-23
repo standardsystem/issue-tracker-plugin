@@ -3,7 +3,8 @@
 - **Status**: Accepted
 - **Date**: 2026-11-23
 - **Deciders**: kazuyukikato
-- **Related**: [ADR 0001](0001-plugin-and-project-config.md)（公開のリポジトリなので、社内のプロジェクト名や個別の事情は中身に書かない）、[ADR 0010](0010-repo-only-config-for-public-repositories.md)（公開のリポジトリでは課題キーを書かずに作業し、扱いは別に決めるとした）
+- **Amends**: [ADR 0010](0010-repo-only-config-for-public-repositories.md)（公開のリポジトリでは課題キーを書かずに作業し、扱いは別に決める）
+- **Related**: [ADR 0001](0001-plugin-and-project-config.md)（公開のリポジトリなので、社内のプロジェクト名や個別の事情は中身に書かない）
 
 ## Context
 
