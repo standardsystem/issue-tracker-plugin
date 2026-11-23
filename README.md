@@ -141,6 +141,7 @@ claude plugin install issue-tracker@issue-tracker-plugin --scope project
 - [ADR 0011: このリポジトリのブランチ名・コミット・PR には、課題キーだけを書いてよい](docs/adr/0011-issue-keys-in-branches-commits-and-prs.md)
 - [ADR 0012: PR がレビューのスクリプトを変えたときは、差分を示して、Codex に送ってよいかを利用者に確かめる](docs/adr/0012-ask-when-pr-changes-review-script.md)
 - [ADR 0013: 手元のリポジトリの設定のファイルは、既定のブランチのものを読む](docs/adr/0013-read-settings-from-default-branch.md)
+- [ADR 0014: レビューの設定を直したあと、既定のブランチに入るのを待つのは、GitHub から読んだ正本のときだけにする](docs/adr/0014-wait-only-for-canonical-read-from-github.md)
 
 ## ライセンス
 
