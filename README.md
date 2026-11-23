@@ -97,7 +97,7 @@ claude plugin list
 
 - `claude plugin update` には、プラグインの名前（`issue-tracker@issue-tracker-plugin`）が要ります。
 - `local`・`project` の範囲で入れたときは、スキルを使うリポジトリのディレクトリで実行します。`--scope` を付けなければ、そのディレクトリに結び付いた導入を探して更新します。ほかのディレクトリで実行すると、別のリポジトリの導入を更新することがあります。
-- 最後の `claude plugin list` で、同じディレクトリの導入の `Version` が新しい版になったことを確かめます（`--json` を付けると、`projectPath` でどのディレクトリの導入かが分かります）。
+- 最後の `claude plugin list` で、新しい版になったことを確かめます。複数のディレクトリに入れていると、普通の出力は、ほかのディレクトリの導入も区別なく並べます。そのときは `claude plugin list --json` で、`projectPath` が今のディレクトリの導入の `version` を見ます。
 
 Issue Tracker のサーバーが、より新しい版を求めているとき、スキルは更新を勧めます。
 
