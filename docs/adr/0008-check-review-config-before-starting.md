@@ -4,6 +4,7 @@
 - **Date**: 2026-11-21
 - **Deciders**: kazuyukikato
 - **Related**: [ADR 0001](0001-plugin-and-project-config.md)、[ADR 0004](0004-inherit-review-section.md)（この ADR が一部を改める）、[ADR 0005](0005-review-model-and-multiple-reviewers.md)
+- **Amended by**: [ADR 0009](0009-show-all-review-config-problems-at-once.md)（確かめの 1〜3 はすべて見てまとめて示す。送ってよいという答えを `着手` の印に残す）
 
 ## Context
 
