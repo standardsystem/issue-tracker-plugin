@@ -4,7 +4,7 @@
 - **Date**: 2026-11-06
 - **Deciders**: kazuyukikato
 - **Related**: [issue-workflow-format.md](../issue-workflow-format.md)、[comment-markers.md](../comment-markers.md)
-- **Amended by**: [ADR 0002](0002-no-bundled-mcp-server.md)（MCP サーバーの接続の設定はプラグインに含めない）、[ADR 0003](0003-review-gated-merge.md)（レビューで止まる条件を満たした PR は、承認なしでマージする）
+- **Amended by**: [ADR 0002](0002-no-bundled-mcp-server.md)（MCP サーバーの接続の設定はプラグインに含めない）、[ADR 0003](0003-review-gated-merge.md)（レビューで止まる条件を満たした PR は、承認なしでマージする）、[ADR 0010](0010-repo-only-config-for-public-repositories.md)（公開のリポジトリには、`project` を書かないリポジトリの層だけの設定を置く）
 
 ## Context
 
