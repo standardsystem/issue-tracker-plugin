@@ -4,7 +4,7 @@
 - **Date**: 2026-11-08
 - **Deciders**: kazuyukikato
 - **Related**: [ADR 0001](0001-plugin-and-project-config.md)（設定のファイルを、プロジェクトの層とリポジトリの層に分けた）
-- **Amended by**: [ADR 0008](0008-check-review-config-before-starting.md)（Codex に全体を送ってよいという許しは、どのリポジトリのことかを明記したものだけが、ほかのリポジトリに効く）
+- **Amended by**: [ADR 0008](0008-check-review-config-before-starting.md)（Codex に全体を送ってよいという許しは、どのリポジトリのことかを明記したものだけが、ほかのリポジトリに効く）、[ADR 0010](0010-repo-only-config-for-public-repositories.md)（受け継ぐリポジトリに、リポジトリの層だけのファイルを置いたリポジトリを加えた）
 
 ## Context
 

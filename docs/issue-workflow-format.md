@@ -211,6 +211,7 @@ YAML の値と違い、作業するリポジトリに同じ節があっても、
 2. `project.definedIn` があれば、正本のファイルを `gh api repos/<owner/repo>/contents/.agents/issue-workflow.md` で GitHub から読む。
    手元の clone の場所に左右されないためである。読むのは既定のブランチの最新。
 3. 課題のカテゴリーから、`project.repositories` で作業するリポジトリを決める。
+   - `repositories` が無ければ（1つのリポジトリだけのプロジェクト）、今のリポジトリで作業する。以下の箇条は、`repositories` があるときに当てる。
    - カテゴリーが `repositories` に無いか、課題にカテゴリーが無ければ、`project.defaultRepository` のリポジトリにする。それも無ければ、利用者に聞く。
    - 今のリポジトリと同じなら、そのまま作業する。
    - 違えば、隣のフォルダー（`../<リポジトリ名>`）を探し、remote が `owner/repo` と一致すれば使う。
@@ -355,7 +356,7 @@ repo:
 - 版を上げて npm に出したあとで、新しい版を入れたサンプルが動くことを確かめる。
 ````
 
-正本（例 2 の `acme/shop-portal`）の `project` に、このリポジトリを足します。カテゴリーの無い課題は、正本で解決します。
+正本（例 2 の `acme/shop-portal`）の `project.repositories` に、このリポジトリを足します。
 
 ```yaml
   repositories:
@@ -363,8 +364,10 @@ repo:
     api: acme/shop-api
     importer: acme/shop-importer
     sdk: acme/shop-sdk
-  defaultRepository: acme/shop-portal
 ```
+
+例 2 はカテゴリーをリポジトリごとに付けるので、`defaultRepository` は書きません（付け忘れた課題は、スキルが利用者に聞きます）。
+カテゴリーを機能の区分に使い、ほとんどの課題が正本に向かうプロジェクトでは、`defaultRepository` に正本を書きます。
 
 `acme/shop-sdk` の課題は、`acme/shop-portal` で `/resolve-issue` を始めます。スキルは課題のカテゴリー `sdk` から `acme/shop-sdk` を決め、このファイルの `repo` を読みます。
 `acme/shop-sdk` で始めると、スキルは正本のリポジトリで始め直すよう伝えて止まります（どこが正本かは、このファイルに無いので示しません）。
