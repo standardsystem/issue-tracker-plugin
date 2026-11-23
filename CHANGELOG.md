@@ -3,6 +3,12 @@
 版の付け方は [Semantic Versioning](https://semver.org/lang/ja/) に従います。
 設定のファイルの書式（`format`）やコメントの印を変えたときは、その旨を書きます。
 
+## 0.12.1
+
+- `resolve-issue`: 版が古いときの更新の案内に、`/plugin` が使えない環境（VS Code 拡張など）のための、ターミナルでの方法（`claude plugin marketplace update` と `claude plugin update issue-tracker@issue-tracker-plugin`）を添えるようにした。スキルを使うリポジトリのディレクトリで実行すること、`/reload-plugins` が使えなければ新しいセッションを開くことも伝える。
+- README: 導入と更新の手順に、ターミナルでの方法を足した。`claude plugin update` にはプラグインの名前が要ること、`local`・`project` の範囲で入れたときは、スキルを使うリポジトリのディレクトリで実行すること（`--scope` を付けなければ、そのディレクトリに結び付いた導入を更新する）、`claude plugin list` で版を確かめることを書いた。
+- 設定のファイルの書式とコメントの印は変えていない。
+
 ## 0.12.0
 
 - `resolve-issue`: PR がレビューのスクリプトを変えたときは、レビューを動かす前に止まり、差分を示して、Codex に送ってよいかを利用者に確かめるようにした（[ADR 0012](docs/adr/0012-ask-when-pr-changes-review-script.md)）。

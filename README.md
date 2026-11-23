@@ -68,6 +68,14 @@ Claude Code で次を実行します。
 /plugin install issue-tracker@issue-tracker-plugin
 ```
 
+`/plugin` が使えない環境（VS Code 拡張など。「/plugin isn't available in this environment」と出る）では、ターミナルで次を実行してから、新しいセッションを開きます。
+`--scope` を付けなければ `user`（すべてのディレクトリ）に入ります。1つのリポジトリだけで使うなら、そのリポジトリのディレクトリで、`claude plugin install` に `--scope local` を付けて実行します。
+
+```bash
+claude plugin marketplace add standardsystem/issue-tracker-plugin
+claude plugin install issue-tracker@issue-tracker-plugin
+```
+
 ### 3. 更新を受け取る
 
 常に最新版を使う前提です。自動更新は、Claude Code の既定では切れています。
@@ -78,6 +86,18 @@ Claude Code で次を実行します。
 ```text
 /plugin marketplace update issue-tracker-plugin
 ```
+
+`/plugin` が使えない環境（VS Code 拡張など）では、ターミナルで次を実行してから、`/reload-plugins` で読み込み直します。`/reload-plugins` も使えなければ、新しいセッションを開きます。開いているセッションは、古い版のスキルを読んだままです。
+
+```bash
+claude plugin marketplace update issue-tracker-plugin
+claude plugin update issue-tracker@issue-tracker-plugin
+claude plugin list
+```
+
+- `claude plugin update` には、プラグインの名前（`issue-tracker@issue-tracker-plugin`）が要ります。
+- `local`・`project` の範囲で入れたときは、スキルを使うリポジトリのディレクトリで実行します。`--scope` を付けなければ、そのディレクトリに結び付いた導入を探して更新します。ほかのディレクトリで実行すると、別のリポジトリの導入を更新することがあります。
+- 最後の `claude plugin list` で、新しい版になったことを確かめます。複数のディレクトリに入れていると、普通の出力は、ほかのディレクトリの導入も区別なく並べます。そのときは `claude plugin list --json` で、`projectPath` が今のディレクトリの導入の `version` を見ます。
 
 Issue Tracker のサーバーが、より新しい版を求めているとき、スキルは更新を勧めます。
 

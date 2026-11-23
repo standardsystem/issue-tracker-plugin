@@ -3,12 +3,12 @@ name: resolve-issue
 description: STANDARD Issue Tracker の課題を1件、着手の確認から、実装、PR、レビューと対応、マージ、公開、本番での確認、完了までの手順で解決する。「課題を解決して」「PROJ-12 を対応して」と頼まれたとき、または /resolve-issue <課題キー> で呼ばれたときに使う。
 argument-hint: <課題キー>
 metadata:
-  version: 0.12.0
+  version: 0.12.1
 ---
 
 # 課題を解決する
 
-このスキルの版: 0.12.0
+このスキルの版: 0.12.1
 
 引数は課題キー（例: `PROJ-12`）: `$ARGUMENTS`
 複数件をまとめて解決するときは `/resolve-issues` を使う。
@@ -65,6 +65,8 @@ metadata:
 
 2. **版を確かめる。** MCP サーバー `issue-tracker` の instructions に「issue-tracker プラグインのスキルは、版 X.Y.Z 以上で使ってください。」とあれば、このスキルの版（冒頭の「このスキルの版」）と比べる。
    このスキルの版が古ければ、利用者に更新（`/plugin marketplace update issue-tracker-plugin` のあと `/reload-plugins`）を勧め、続けるかを聞く。instructions に版が書いてなければ、比べない。
+   `/plugin` が使えない環境（VS Code 拡張など）のために、ターミナルでの方法も添える: スキルを使うリポジトリのディレクトリで `claude plugin marketplace update issue-tracker-plugin` と `claude plugin update issue-tracker@issue-tracker-plugin` を実行し、`/reload-plugins` で読み込み直す（使えなければ、新しいセッションを開く）。
+   ほかのディレクトリで実行すると、別のリポジトリに入れた導入を更新することがある（README の「更新を受け取る」）。
 3. **設定を読む。** `${CLAUDE_PLUGIN_ROOT}/docs/issue-workflow-format.md` を読み、その「スキルの読み方」の 1・2・5 のとおりに、今のリポジトリの `.agents/issue-workflow.md`（と、`definedIn` があれば正本）を読み、`format` の番号を確かめる。
    そのファイルに `project` が無ければ（リポジトリの層だけのファイル）、「スキルの読み方」の 1 のとおりに、正本のリポジトリで始め直すよう伝えて止まる。設定が無いとき（5）としては扱わない。
 4. **課題を決めて読む。**
