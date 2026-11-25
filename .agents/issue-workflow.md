@@ -5,6 +5,7 @@ repo:
   merge: merge
   review:
     by: claude
+    model: opus
   deploy:
     type: auto
 ---
